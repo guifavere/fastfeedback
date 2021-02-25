@@ -11,14 +11,12 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Fast Feedback</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Fast feedback
-        </h1>
+        <h1 className={styles.title}>Fast feedback</h1>
 
         <button onClick={auth.signinWithGithub} type="button">Sign in</button>
 
