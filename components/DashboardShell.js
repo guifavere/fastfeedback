@@ -4,6 +4,8 @@ import { Box, Flex, Link, Avatar, Icon } from '@chakra-ui/core';
 
 import { useAuth } from '@/lib/auth';
 
+import AddSiteModal from '@/components/AddSiteModal';
+
 const DashboardShell = ({ children }) => {
   const { user } = useAuth();
 
@@ -42,13 +44,16 @@ const DashboardShell = ({ children }) => {
           <Flex justifyContent="center" alignItems="center">
             <NextLink href="/account" passHref>
               <Link>
-                <Avatar size="sm" src={user.photoUrl} />
+                <Avatar size="sm" src={user?.photoUrl} />
               </Link>
             </NextLink>
           </Flex>
         </Flex>
       </Flex>
       <Flex margin="0 auto" direction="column" maxW="1250px" px={[0, 8, 8]}>
+        <AddSiteModal>
+          + Add Site
+        </AddSiteModal>
         {children}
       </Flex>
     </Box>
