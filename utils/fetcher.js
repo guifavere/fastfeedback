@@ -1,4 +1,3 @@
-
 const fetcher = async (url, token) => {
   const res = await fetch(url, {
     method: 'GET',

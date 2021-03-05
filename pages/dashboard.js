@@ -9,8 +9,8 @@ import SiteTable from '@/components/SiteTable';
 import SiteTableSkeleton from '@/components/SiteTableSkeleton';
 
 export default function Dashboard() {
-  const auth = useAuth();
-  const { data } = useSWR('/api/sites', fetcher);
+  const { user } = useAuth();
+  const { data } = useSWR(user ? ['/api/sites', user.token]: null, fetcher);
 
   if (!data) {
     return (
