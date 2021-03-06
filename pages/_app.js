@@ -13,6 +13,7 @@ function App({ Component, pageProps }) {
           styles={css`
             html {
               scroll-behavior: smooth;
+              background-color: #EDF2F7;
             }
 
             #__next {
