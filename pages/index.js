@@ -1,65 +1,66 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
+import { Button, Flex, Icon, Stack } from '@chakra-ui/core';
+
+import { useAuth } from '@/lib/auth';
 
 export default function Home() {
+  const auth = useAuth();
+
   return (
-    <div className={styles.container}>
+    <Flex as="main" direction="column" align="center" justify="center" h="100vh">
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (document.cookie && document.cookie.includes('fast-feedback-auth')) {
+                window.location.href = "/dashboard"
+              }
+            `
+          }}
+        />
       </Head>
+      <Icon color="black" name="logo" size="64px" />
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Fast feedback
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
+      {auth.user ? (
+        <Button onClick={auth.signout}>Sign out</Button>
+      ): (
+        <Stack>
+          <Button
+            bg="gray.900"
+            color="white"
+            leftIcon="github"
+            mt={4}
+            size="lg"
+            fontWeight="medium"
+            onClick={auth.signinWithGithub}
+            _hover={{ bg: 'gray.700' }}
+            _active={{
+              bg: 'gray.800',
+              transform: 'scale(0.95)'
+            }}
           >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+            Sign in with Github
+          </Button>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
+          <Button
+            bg="white"
+            color="gray.900"
+            variant="outline"
+            leftIcon="google"
+            mt={4}
+            size="lg"
+            fontWeight="medium"
+            onClick={auth.signinWithGoogle}
+            _hover={{ bg: 'gray.100' }}
+            _active={{
+              bg: 'gray.100',
+              transform: 'scale(0.95)'
+            }}
           >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+            Sign in with Google
+          </Button>
+        </Stack>
+      )}
+    </Flex>
   )
 }
